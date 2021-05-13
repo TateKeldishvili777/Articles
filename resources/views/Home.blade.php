@@ -16,70 +16,20 @@
     </head>
     <body style="height: 100vh;">
         <div class="w-100 h-100 flex-column d-flex justify-content-center align-items-center">
-            <h3 class="d-block m-4" style="color:#989da4">Overview</h3>
+            <h3 class="d-block m-4" style="color:#989da4">Movies</h3>
                 <div class="d-flex ">
             <div class="d-flex flex-row m-3">
 
-                <div class="d-flex pl-2 justify-content-center align-content-center" style="
-                border-radius: 8px;
-                width: 280px;
-                height: 90px;
-                box-shadow: 0 0 10px rgba(0,0,0,.06);
-            ">
-                        <div style="flex:1" class="d-flex align-items-center">
-                            <i style="font-size: 28px;height:30px;cursor: pointer;" class="text-success fas fa-check-circle ml-2"></i>
-                        </div>
-                        <div style="flex:4" class="d-flex flex-column justify-content-center">
-                            <span style="color:#a8b1be;font-size: 19px">Success tasks</span>
-                        <span style="color:#989da4;font-size: 27px">{{ sizeof($success) }}</span>
-                        </div>
-                    </div>
 
             </div>
 
-            <div class="d-flex flex-row m-3">
 
-                <div class="d-flex pl-2 justify-content-center align-content-center" style="
-                border-radius: 8px;
-                width: 280px;
-                height: 90px;
-                box-shadow: 0 0 10px rgba(0,0,0,.06);
-            ">
-                        <div style="flex:1" class="d-flex align-items-center">
-                            <i style="font-size: 28px;cursor: pointer;" class="text-danger fas fa-times-circle ml-2"></i>
 
-                        </div>
-                        <div style="flex:4" class="d-flex flex-column justify-content-center">
-                            <span style="color:#a8b1be;font-size: 19px">Failed tasks</span>
-                            <span style="color:#989da4;font-size: 27px">{{ sizeof($faileds) }}</span>
-                        </div>
-                    </div>
-
-            </div>
-
-            <div class="d-flex flex-row m-3">
-
-                <div class="d-flex pl-2 justify-content-center align-content-center" style="
-                border-radius: 8px;
-                width: 280px;
-                height: 90px;
-                box-shadow: 0 0 10px rgba(0,0,0,.06);
-            ">
-                        <div style="flex:1" class="d-flex align-items-center">
-                            <i style="font-size: 28px;cursor: pointer;" class="text-info fas fa-clock ml-2"></i>
-                        </div>
-                        <div style="flex:4" class="d-flex flex-column justify-content-center">
-                            <span style="color:#a8b1be;font-size: 19px">Later tasks</span>
-                            <span style="color:#989da4;font-size: 27px">{{ sizeof($laters) }}</span>
-                        </div>
-                    </div>
-
-            </div>
             </div>
             <a href="./add" type="button" style=" border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,.06);" class="btn btn-lg btn-block w-75 m-3">Create task</a>
+            box-shadow: 0 0 10px rgba(0,0,0,.06); background-color:red" class="btn btn-lg btn-block w-75 m-3">Add movies</a>
 
-            <h3 class="d-block m-4" style="color:#989da4">Tasks</h3>
+            <h3 class="d-block m-4" style="color:#989da4">Published</h3>
             <table  class="table w-75 " style="
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,.06);
@@ -87,31 +37,33 @@
 
                 <thead style="background: #fbfdfe">
                     <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">title</th>
-                    <th scope="col">state</th>
-                    <th scope="col">Handle</th>
+                        <th scope="col">#</th>
+                        <th scope="col">title</th>
+                        <th scope="col">Is published</th>
+                        <th scope="col">author</th>
+                        <th scope="col">Handle</th>
+                        <th scope="col">likes</th>
+                        <th scope="col">body</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (array_merge($success, $faileds, $awaits) as $tasks)
+                    @foreach (array_merge($awaits) as $tasks)
                     <tr>
                     <th scope="row">{{$tasks->id}}</th>
                     <td>{{$tasks->title}}</td>
                     <td>{{$tasks->state}}</td>
+                        <td>{{$tasks->author}}</td>
                     <td>
                         <a href="/delete/{{$tasks->id}}"><i style="font-size: 19px;cursor: pointer;" class="text-warning fas fa-trash-alt ml-2"></i></a>
                         <a href="/edit/{{$tasks->id}}"><i style="font-size: 19px;cursor: pointer;" class="text-primary fas fa-edit ml-2"></i></a>
-                        <a href="/success/{{$tasks->id}}"><i  style="font-size: 19px;cursor: pointer;" class="text-success fas fa-check-circle ml-2"></i></a>
-                        <a href="/failed/{{$tasks->id}}"><i  style="font-size: 19px;cursor: pointer;" class="text-danger fas fa-times-circle ml-2"></i></a>
-                        <a href="/later/{{$tasks->id}}"><i  style="font-size: 19px;cursor: pointer;" class="text-info fas fa-clock ml-2"></i></a>
+                        <a href="/like/{{$tasks->id}}"><i  style="font-size: 19px;cursor: pointer;" class="fas fa-thumbs-up"></i></a>
                     </td>
                     </tr>
                     @endforeach
 
                 </tbody>
             </table>
-            <h3 class="d-block m-4" style="color:#989da4">Later tasks</h3>
+            <h3 class="d-block m-4" style="color:#989da4">Not published</h3>
             <table  class="table w-75 " style="
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,.06);
@@ -119,10 +71,13 @@
 
                 <thead style="background: #fbfdfe">
                     <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">title</th>
-                    <th scope="col">state</th>
-                    <th scope="col">Handle</th>
+                        <th scope="col">#</th>
+                        <th scope="col">title</th>
+                        <th scope="col">Is published</th>
+                        <th scope="col">author</th>
+                        <th scope="col">Handle</th>
+                        <th scope="col">likes</th>
+                        <th scope="col">body</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -132,12 +87,11 @@
                     <th scope="row">{{$tasks->id}}</th>
                     <td>{{$tasks->title}}</td>
                     <td>{{$tasks->state}}</td>
+                        <td>{{$tasks->author}}</td>
                     <td>
                         <a href="/delete/{{$tasks->id}}"><i style="font-size: 19px;cursor: pointer;" class="text-warning fas fa-trash-alt ml-2"></i></a>
                             <a href="/edit/{{$tasks->id}}"><i style="font-size: 19px;cursor: pointer;" class="text-primary fas fa-edit ml-2"></i></a>
-                                <a href="/success/{{$tasks->id}}"><i style="font-size: 19px;cursor: pointer;" class="text-success fas fa-check-circle ml-2"></i></a>
-                                    <a href="/failed/{{$tasks->id}}"><i style="font-size: 19px;cursor: pointer;" class="text-danger fas fa-times-circle ml-2"></i></a>
-                                        <a href="/await/{{$tasks->id}}"><i style="font-size: 19px;cursor: pointer;" class="text-info fas fa-clock ml-2"></i></a>
+                                <a href="/like/{{$tasks->id}}"><i style="font-size: 19px;cursor: pointer;" class="fas fa-thumbs-up"></i></a>
                     </td>
                     </tr>
                     @endforeach

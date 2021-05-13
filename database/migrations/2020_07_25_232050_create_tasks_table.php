@@ -16,6 +16,10 @@ class CreateTasksTable extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->text('body');
+            $table->string('author');
+            $table->integer('likes');
+            $table->boolean('is_published');
             $table->string('state')->default('await');
             $table->timestamps();
         });

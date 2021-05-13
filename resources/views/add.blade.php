@@ -16,17 +16,29 @@
     </head>
     <body style="height: 100vh;">
         <div class="w-100 h-100 flex-column d-flex justify-content-center align-items-center">
-            <h3>Add new task</h3>
+            <h3>Add new movie</h3>
             <form class="w-50" method="GET" action="/pushNewTask/">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Title</label>
                   <input name="title" type="text" class="form-control" id="exampleInputTitle1" aria-describedby="emailHelp">
                 </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Body</label>
+                    <input name="body" type="text" class="form-control" id="exampleInputTitle1" aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Author</label>
+                    <input name="author" type="text" class="form-control" id="exampleInputTitle1" aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Likes</label>
+                    <input name="likes" type="int" class="form-control" id="exampleInputTitle1" aria-describedby="emailHelp">
+                </div>
                 <div class="form-group ">
-                    <label for="exampleFormControlSelect1">state select</label>
+                    <label for="exampleFormControlSelect1">Is_Published</label>
                     <select name="state" class="form-control" id="exampleFormControlSelect1">
-                      <option>await</option>
-                      <option>later</option>
+                      <option>True</option>
+                      <option>False</option>
                     </select>
                   </div>
 

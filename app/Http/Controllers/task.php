@@ -17,37 +17,22 @@ class task extends Controller
 
 
         for ($i = 0; $i < sizeof($tasks); $i++) {
-            if (($tasks[$i])->state == "later") {
+            if (($tasks[$i])->state == "False") {
                 array_push($laters, $tasks[$i]);
             }
-            if (($tasks[$i])->state == "await") {
+            if (($tasks[$i])->state == "True") {
                 array_push($awaits, $tasks[$i]);
-            }
-            if (($tasks[$i])->state == "success") {
-                array_push($success, $tasks[$i]);
-            }
-            if (($tasks[$i])->state == "failed") {
-                array_push($faileds, $tasks[$i]);
             }
         }
 
-        return view('Home')->with('laters', $laters)->with('awaits', $awaits)->with('success', $success)->with('faileds', $faileds);
+        return view('Home')->with('laters', $laters)->with('awaits', $awaits);
     }
     public function delete($id)
     {
         \App\task::where('id', $id)->delete();
         return "<script>window.location.assign('/')</script>";
     }
-    public function success($id)
-    {
-        \App\task::where('id', $id)->update(['state' => 'success']);
-        return "<script>window.location.assign('/')</script>";
-    }
-    public function failed($id)
-    {
-        \App\task::where('id', $id)->update(['state' => 'failed']);
-        return "<script>window.location.assign('/')</script>";
-    }
+
     public function later($id)
     {
         \App\task::where('id', $id)->update(['state' => 'later']);

@@ -10,4 +10,11 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    public function index()
+    {
+        return view('tasks.index', [
+            'tasks' => DB::table('tasks')->paginate(15)
+        ]);
+    }
 }
+
